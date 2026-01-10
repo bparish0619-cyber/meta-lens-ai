@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".MetaLensApplication"
         android:allowBackup="true"
@@ -10,6 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MetaLens">
 
+        <!-- Developer Mode: set to 0. For production, use app id from Wearables Developer Center -->
+        <meta-data
+            android:name="com.meta.wearable.mwdat.APPLICATION_ID"
+            android:value="0" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -18,6 +27,14 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!-- Deeplink used by Meta AI app / DAT during registration flows -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="metalens" />
             </intent-filter>
         </activity>
 
