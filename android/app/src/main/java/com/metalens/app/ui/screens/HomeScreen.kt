@@ -44,7 +44,6 @@ fun HomeScreen(
         Icon(
             painter = painterResource(id = R.drawable.smart_glasses_icon),
             contentDescription = stringResource(R.string.home_glasses_icon_description),
-            tint = MaterialTheme.colorScheme.primary,
             modifier = Modifier.padding(top = 4.dp).size(112.dp),
         )
         Spacer(modifier = Modifier.height(12.dp))
