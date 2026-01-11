@@ -25,6 +25,8 @@ import com.metalens.app.ui.components.FeatureActionCard
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
+    isGlassesConnected: Boolean = false,
+    onStartConversation: () -> Unit = {},
     onStartStreaming: () -> Unit = {},
 ) {
     Column(
@@ -50,7 +52,8 @@ fun HomeScreen(
         FeatureActionCard(
             title = stringResource(R.string.start_conversation),
             icon = Icons.Filled.PlayArrow,
-            onClick = {},
+            enabled = isGlassesConnected,
+            onClick = onStartConversation,
             modifier = Modifier.fillMaxWidth(),
         )
 
@@ -59,6 +62,7 @@ fun HomeScreen(
         FeatureActionCard(
             title = stringResource(R.string.start_streaming),
             icon = Icons.Filled.Videocam,
+            enabled = isGlassesConnected,
             onClick = onStartStreaming,
             modifier = Modifier.fillMaxWidth(),
         )

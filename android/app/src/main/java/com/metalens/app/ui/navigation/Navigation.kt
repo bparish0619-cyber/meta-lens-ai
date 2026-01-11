@@ -14,19 +14,25 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.activity.ComponentActivity
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.metalens.app.R
 import com.metalens.app.ui.components.MetaLensTopBar
+import com.metalens.app.ui.screens.ConversationScreen
 import com.metalens.app.ui.screens.HistoryScreen
 import com.metalens.app.ui.screens.HomeScreen
 import com.metalens.app.ui.screens.SettingsScreen
+import com.metalens.app.wearables.WearablesViewModel
 
 sealed class MetaLensRoute(
     val route: String,
@@ -36,6 +42,7 @@ sealed class MetaLensRoute(
     data object History : MetaLensRoute("history", R.string.tab_history)
     data object Settings : MetaLensRoute("settings", R.string.tab_settings)
     data object Stream : MetaLensRoute("stream", R.string.stream_title)
+    data object Conversation : MetaLensRoute("conversation", R.string.conversation_title)
 }
 
 private val bottomTabs = listOf(
@@ -55,7 +62,8 @@ private fun MetaLensScaffold(navController: NavHostController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
     val currentTab = bottomTabs.firstOrNull { it.route == currentRoute } ?: MetaLensRoute.Home
-    val isFullScreenRoute = currentRoute == MetaLensRoute.Stream.route
+    val isFullScreenRoute =
+        currentRoute == MetaLensRoute.Stream.route || currentRoute == MetaLensRoute.Conversation.route
     val canNavigateBack = navController.previousBackStackEntry != null
 
     Scaffold(
@@ -64,7 +72,12 @@ private fun MetaLensScaffold(navController: NavHostController) {
                 MetaLensTopBar(title = stringResource(currentTab.titleResId))
             } else {
                 MetaLensTopBar(
-                    title = stringResource(R.string.stream_title),
+                    title =
+                        if (currentRoute == MetaLensRoute.Conversation.route) {
+                            stringResource(R.string.conversation_title)
+                        } else {
+                            stringResource(R.string.stream_title)
+                        },
                     onBack = if (canNavigateBack) ({ navController.popBackStack() }) else null,
                 )
             }
@@ -93,6 +106,7 @@ private fun MetaLensScaffold(navController: NavHostController) {
                                             MetaLensRoute.History -> Icons.Filled.History
                                             MetaLensRoute.Settings -> Icons.Filled.Settings
                                             MetaLensRoute.Stream -> Icons.Filled.Home
+                                            MetaLensRoute.Conversation -> Icons.Filled.Home
                                         },
                                     contentDescription = stringResource(tab.titleResId),
                                 )
@@ -121,8 +135,13 @@ private fun MetaLensNavHost(
         startDestination = MetaLensRoute.Home.route,
     ) {
         composable(MetaLensRoute.Home.route) {
+            val activity = LocalContext.current as ComponentActivity
+            val wearablesViewModel: WearablesViewModel = viewModel(activity)
+            val wearablesUiState by wearablesViewModel.uiState.collectAsStateWithLifecycle()
             HomeScreen(
                 modifier = modifier,
+                isGlassesConnected = wearablesUiState.hasActiveDevice,
+                onStartConversation = { navController.navigate(MetaLensRoute.Conversation.route) },
                 onStartStreaming = { navController.navigate(MetaLensRoute.Stream.route) },
             )
         }
@@ -136,6 +155,12 @@ private fun MetaLensNavHost(
         }
         composable(MetaLensRoute.Stream.route) {
             com.metalens.app.ui.screens.StreamScreen(
+                modifier = modifier,
+                onStop = { navController.popBackStack() },
+            )
+        }
+        composable(MetaLensRoute.Conversation.route) {
+            ConversationScreen(
                 modifier = modifier,
                 onStop = { navController.popBackStack() },
             )

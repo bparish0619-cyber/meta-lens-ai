@@ -19,6 +19,14 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        // Prototype only: set -POPENAI_API_KEY=... or define it in ~/.gradle/gradle.properties
+        // (Do NOT commit API keys.)
+        buildConfigField(
+            "String",
+            "OPENAI_API_KEY",
+            "\"${project.findProperty("OPENAI_API_KEY")?.toString() ?: ""}\"",
+        )
     }
 
     buildTypes {
@@ -72,5 +80,7 @@ dependencies {
     implementation(libs.mwdat.core)
     implementation(libs.mwdat.camera)
     implementation(libs.androidx.exifinterface)
+
+    implementation(libs.okhttp)
 }
 

@@ -6,6 +6,17 @@
     <string name="home_subtitle">Connect any AI assistant to your Meta Ray-Ban</string>
 
     <string name="start_conversation">Start Conversation</string>
+    <string name="conversation_title">Conversation</string>
+    <string name="conversation_start">Start</string>
+    <string name="conversation_stop">Stop</string>
+    <string name="conversation_status_idle">Status: idle</string>
+    <string name="conversation_status_connecting">Status: connecting</string>
+    <string name="conversation_status_listening">Status: listening</string>
+    <string name="conversation_status_speaking">Status: speaking</string>
+    <string name="conversation_status_error">Status: error</string>
+    <string name="conversation_permission_needed">Microphone permission is required</string>
+    <string name="conversation_text_hint">Type a message</string>
+    <string name="conversation_send">Send</string>
 
     <string name="tab_home">Home</string>
     <string name="tab_history">History</string>
