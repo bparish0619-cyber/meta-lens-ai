@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.ChatBubble
 import androidx.compose.material.icons.filled.Videocam
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -51,7 +51,7 @@ fun HomeScreen(
 
         FeatureActionCard(
             title = stringResource(R.string.start_conversation),
-            icon = Icons.Filled.PlayArrow,
+            icon = Icons.Filled.ChatBubble,
             enabled = isGlassesConnected,
             onClick = onStartConversation,
             modifier = Modifier.fillMaxWidth(),

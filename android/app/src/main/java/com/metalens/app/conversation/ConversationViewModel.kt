@@ -3,7 +3,7 @@ package com.metalens.app.conversation
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.metalens.app.BuildConfig
+import com.metalens.app.settings.AppSettings
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -51,9 +51,13 @@ class ConversationViewModel(
                 audioIo.startRoutingToBluetoothSco()
                 audioIo.startPcmPlayback()
 
+                val apiKey = AppSettings.getOpenAiApiKey(getApplication()).trim()
+                val model = AppSettings.getOpenAiModel(getApplication()).trim()
+
                 val client =
                     OpenAIRealtimeClient(
-                        apiKey = BuildConfig.OPENAI_API_KEY,
+                        apiKey = apiKey,
+                        model = model.ifBlank { OpenAIRealtimeClient.DEFAULT_MODEL },
                         onConnected = {
                             _uiState.update { it.copy(status = ConversationStatus.Listening) }
                         },

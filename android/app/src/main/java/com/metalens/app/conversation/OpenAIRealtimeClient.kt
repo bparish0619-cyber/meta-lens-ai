@@ -58,7 +58,7 @@ class OpenAIRealtimeClient(
 
     fun connect() {
         if (apiKey.isBlank()) {
-            onError("Missing OpenAI API key (BuildConfig.OPENAI_API_KEY is empty)")
+            onError("Missing OpenAI API key (set it in Settings or via OPENAI_API_KEY build config)")
             return
         }
 

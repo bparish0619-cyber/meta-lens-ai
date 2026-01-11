@@ -2,11 +2,12 @@ package com.metalens.app.ui.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.ChatBubble
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -24,6 +25,7 @@ import com.metalens.app.R
 @Composable
 fun FeatureActionCard(
     title: String,
+    subtitle: String? = null,
     icon: ImageVector,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -52,10 +54,19 @@ fun FeatureActionCard(
             horizontalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             Icon(imageVector = icon, contentDescription = null)
-            Text(
-                text = title,
-                style = MaterialTheme.typography.titleMedium,
-            )
+            Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.titleMedium,
+                )
+                if (!subtitle.isNullOrBlank()) {
+                    Text(
+                        text = subtitle,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+            }
         }
     }
 }
@@ -65,7 +76,7 @@ fun FeatureActionCard(
 private fun FeatureActionCardPreview() {
     FeatureActionCard(
         title = stringResource(R.string.start_conversation),
-        icon = Icons.Filled.PlayArrow,
+        icon = Icons.Filled.ChatBubble,
         onClick = {},
     )
 }

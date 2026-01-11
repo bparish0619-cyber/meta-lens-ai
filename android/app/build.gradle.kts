@@ -4,6 +4,24 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 }
 
+import java.util.Properties
+
+val localProperties =
+    Properties().apply {
+        val file = rootProject.file("local.properties")
+        if (file.exists()) {
+            file.inputStream().use { load(it) }
+        }
+    }
+
+fun getBuildProperty(name: String): String {
+    val value =
+        project.findProperty(name)?.toString()
+            ?: localProperties.getProperty(name)
+            ?: ""
+    return value.trim().replace("\"", "\\\"")
+}
+
 android {
     namespace = "com.metalens.app"
     compileSdk = 35
@@ -20,12 +38,19 @@ android {
             useSupportLibrary = true
         }
 
-        // Prototype only: set -POPENAI_API_KEY=... or define it in ~/.gradle/gradle.properties
+        // Prototype only: set -POPENAI_API_KEY / -POPENAI_MODEL, or define them in:
+        // - ~/.gradle/gradle.properties
+        // - android/local.properties (NOT committed)
         // (Do NOT commit API keys.)
         buildConfigField(
             "String",
             "OPENAI_API_KEY",
-            "\"${project.findProperty("OPENAI_API_KEY")?.toString() ?: ""}\"",
+            "\"${getBuildProperty("OPENAI_API_KEY")}\"",
+        )
+        buildConfigField(
+            "String",
+            "OPENAI_MODEL",
+            "\"${getBuildProperty("OPENAI_MODEL")}\"",
         )
     }
 

@@ -28,6 +28,28 @@
     <string name="glasses_status_not_connected">Status: not connected</string>
     <string name="glasses_discovered_devices_count">Discovered devices (%1$d)</string>
 
+    <string name="settings_group_hardware">Hardware settings</string>
+    <string name="settings_group_ai">AI Settings</string>
+    <string name="settings_group_about">About</string>
+    <string name="settings_openai_api_key">OpenAI API key</string>
+    <string name="settings_openai_model">OpenAI Model</string>
+    <string name="settings_version">Version</string>
+    <string name="settings_not_set">Not set</string>
+    <string name="settings_current">Current</string>
+    <string name="settings_selected">Selected</string>
+    <string name="settings_check_connection">Check Connection</string>
+    <string name="settings_checking_connection">Checking…</string>
+    <string name="settings_connection_ok">Connection OK</string>
+    <string name="settings_connection_failed">Connection failed</string>
+    <string name="settings_tap_to_test">Tap to test</string>
+    <string name="settings_connected_devices">Connected devices</string>
+    <string name="settings_no_devices_found">No devices found</string>
+    <string name="settings_unknown_device">Unknown device</string>
+
+    <string name="common_cancel">Cancel</string>
+    <string name="common_close">Close</string>
+    <string name="common_save">Save</string>
+
     <string name="start_streaming">Start Streaming</string>
     <string name="stop_streaming">Stop Streaming</string>
     <string name="stream_title">Streaming</string>
