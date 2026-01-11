@@ -210,15 +210,16 @@ fun SettingsScreen(
     }
 
     if (showConnectedDevicesDialog) {
+        val connectedDevices = uiState.connectedDevices
         AlertDialog(
             onDismissRequest = { showConnectedDevicesDialog = false },
             title = { Text(stringResource(R.string.settings_connected_devices)) },
             text = {
-                if (uiState.devices.isEmpty()) {
-                    Text(text = stringResource(R.string.settings_no_devices_found))
+                if (connectedDevices.isEmpty()) {
+                    Text(text = stringResource(R.string.settings_no_connected_devices))
                 } else {
                     Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                        uiState.devices.forEach { deviceId ->
+                        connectedDevices.forEach { deviceId ->
                             val id = deviceId.toString()
                             val name = uiState.deviceDisplayNames[id] ?: stringResource(R.string.settings_unknown_device)
                             Text(
@@ -266,6 +267,13 @@ fun SettingsScreen(
 
         Spacer(modifier = Modifier.height(12.dp))
 
+        val glassesStatusSubtitle =
+            if (uiState.hasActiveDevice) {
+                stringResource(R.string.glasses_status_connected)
+            } else {
+                stringResource(R.string.glasses_status_not_connected)
+            }
+
         FeatureActionCard(
             title =
                 if (uiState.isRegistered) {
@@ -273,6 +281,7 @@ fun SettingsScreen(
                 } else {
                     stringResource(R.string.connect_my_glasses)
                 },
+            subtitle = glassesStatusSubtitle,
             icon = if (uiState.isRegistered) Icons.Filled.BluetoothDisabled else Icons.Filled.Bluetooth,
             onClick = {
                 if (uiState.isRegistered) {
@@ -286,11 +295,12 @@ fun SettingsScreen(
 
         Spacer(modifier = Modifier.height(12.dp))
 
+        val connectedDevices = uiState.connectedDevices
         val connectedDevicesSubtitle =
-            if (uiState.devices.isEmpty()) {
-                stringResource(R.string.settings_no_devices_found)
+            if (connectedDevices.isEmpty()) {
+                stringResource(R.string.settings_no_connected_devices)
             } else {
-                stringResource(R.string.glasses_discovered_devices_count, uiState.devices.size)
+                stringResource(R.string.settings_connected_devices_count, connectedDevices.size)
             }
 
         FeatureActionCard(
@@ -298,7 +308,7 @@ fun SettingsScreen(
             subtitle = connectedDevicesSubtitle,
             icon = Icons.Filled.Devices,
             onClick = { showConnectedDevicesDialog = true },
-            enabled = uiState.devices.isNotEmpty(),
+            enabled = connectedDevices.isNotEmpty(),
             modifier = Modifier.fillMaxWidth(),
         )
 

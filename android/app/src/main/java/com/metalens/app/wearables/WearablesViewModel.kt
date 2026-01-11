@@ -31,7 +31,7 @@ class WearablesViewModel(application: Application) : AndroidViewModel(applicatio
         deviceSelectorJob =
             viewModelScope.launch {
                 deviceSelector.activeDevice(Wearables.devices).collect { device ->
-                    _uiState.update { it.copy(hasActiveDevice = device != null) }
+                    _uiState.update { it.copy(activeDevice = device, hasActiveDevice = device != null) }
                 }
             }
 

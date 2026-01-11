@@ -65,19 +65,15 @@ private fun MetaLensScaffold(navController: NavHostController) {
     val isFullScreenRoute =
         currentRoute == MetaLensRoute.Stream.route || currentRoute == MetaLensRoute.Conversation.route
     val canNavigateBack = navController.previousBackStackEntry != null
+    val topBarTitle = stringResource(R.string.home_title)
 
     Scaffold(
         topBar = {
             if (!isFullScreenRoute) {
-                MetaLensTopBar(title = stringResource(currentTab.titleResId))
+                MetaLensTopBar(title = topBarTitle)
             } else {
                 MetaLensTopBar(
-                    title =
-                        if (currentRoute == MetaLensRoute.Conversation.route) {
-                            stringResource(R.string.conversation_title)
-                        } else {
-                            stringResource(R.string.stream_title)
-                        },
+                    title = topBarTitle,
                     onBack = if (canNavigateBack) ({ navController.popBackStack() }) else null,
                 )
             }

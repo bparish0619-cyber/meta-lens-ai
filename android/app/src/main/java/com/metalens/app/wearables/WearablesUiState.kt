@@ -7,6 +7,10 @@ data class WearablesUiState(
     val registrationState: RegistrationState = RegistrationState.Unavailable(),
     val devices: List<DeviceIdentifier> = emptyList(),
     /**
+     * Currently active (connected) device selected by the DeviceSelector, if any.
+     */
+    val activeDevice: DeviceIdentifier? = null,
+    /**
      * Best-effort friendly names loaded from Wearables.devicesMetadata.
      * Keyed by deviceId.toString().
      */
@@ -15,5 +19,8 @@ data class WearablesUiState(
     val recentError: String? = null,
 ) {
     val isRegistered: Boolean = registrationState is RegistrationState.Registered
+
+    val connectedDevices: List<DeviceIdentifier> =
+        activeDevice?.let { listOf(it) } ?: emptyList()
 }
 

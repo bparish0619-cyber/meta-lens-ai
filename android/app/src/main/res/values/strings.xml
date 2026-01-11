@@ -3,7 +3,8 @@
     <string name="app_name">MetaLens</string>
 
     <string name="home_title">MetaLens AI</string>
-    <string name="home_subtitle">Connect any AI assistant to your Meta Ray-Ban</string>
+    <string name="home_subtitle">Hands-free voice control, live visual analysis, and real-time streaming.</string>
+    <string name="home_glasses_icon_description">Smart glasses</string>
 
     <string name="start_conversation">Start Conversation</string>
     <string name="conversation_title">Conversation</string>
@@ -26,7 +27,8 @@
     <string name="disconnect_my_glasses">Disconnect my glasses</string>
     <string name="glasses_status_connected">Status: connected</string>
     <string name="glasses_status_not_connected">Status: not connected</string>
-    <string name="glasses_discovered_devices_count">Discovered devices (%1$d)</string>
+    <string name="settings_connected_devices_count">Connected devices (%1$d)</string>
+    <string name="settings_no_connected_devices">No connected devices</string>
 
     <string name="settings_group_hardware">Hardware settings</string>
     <string name="settings_group_ai">AI Settings</string>
