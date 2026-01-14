@@ -63,10 +63,12 @@ You’ll also need to enable Developer Mode in the Meta View app. Don’t worry 
 >
 > See [Meta Wearables Setup Guide](https://wearables.developer.meta.com/docs/getting-started-toolkit) for detailed instructions.
 
-After enabling Developer Mode in the Meta AI app, follow the steps below:
+After enabling `Developer Mode` in the Meta AI app, follow the steps below:
 
 1. Download/copy the MetaLens APK to your phone.
 2. On your phone, enable installing apps from unknown sources.
 3. Open the APK and complete the installation.
 4. Open **MetaLens** and go to settings click "Connect my glasses", turn the toggle on, and connect to your glasses.
+5. Open the OpenAI API Key settings and enter your OpenAI API key, your API key should start with `sk-proj-`.
+6. Go to the Home screen—if the buttons are not grayed out, you’re good to go.
 
