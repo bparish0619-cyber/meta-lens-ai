@@ -51,10 +51,10 @@ To run MetaLens AI app, make sure the following checklist is completed:
 - Meta AI app installed on your phone
 - ⚠️ Developer Mode enabled in the Meta AI app
 - Glasses connected to the Meta AI app
-- ⚠️ MetaLens AI connected to Meta AI app Settings -> "Connect my glasses" status Connected. Glasses visible on the "Connected devices" list.
+- MetaLens AI connected to Meta AI app Settings -> "Connect my glasses" status Connected. Glasses visible on the "Connected devices" list.
 - OpenAI API key set in Settings
 - Check connection button i AI Settings shows “Connection OK”.
-- ⚠️ All the monitos requiring access to camera bluetooth and are confirmed
+- All the monitos requiring access to camera bluetooth and are confirmed
 - More details about the critical points in this list are explained in the instructions below.
 
 ## Detailed Installation Steps
@@ -64,9 +64,7 @@ Critical Steps to Run MetaLens on Your Android Phone.
 1) Developer Mode enabled in the Meta AI app:
 
 > ⚠️ **Developer Mode Required**  - Before You Start Instalation MetLens AI
-> Your Meta glasses must have **Developer Mode enabled** before MetaLens AI app can connect to them.  
-> Without this, the app will won't connect to your smart glasses.
->
+> Your Meta glasses must have **Developer Mode enabled** in the Meta AI app before the MetaLens AI app can connect to them.
 > **How to enable:**  
 > 1. Open **Meta AI** app on your phone  
 > 2. Go to **Settings** → **App Info**  Note: This is not the glasses settings (found in the top-left ☰ menu, Settings at the bottom of the menu.).
