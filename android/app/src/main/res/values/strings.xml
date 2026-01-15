@@ -47,6 +47,8 @@
     <string name="settings_camera_quality_high_desc">Battery-intensive (720×1280)</string>
     <string name="settings_openai_api_key">OpenAI API key</string>
     <string name="settings_openai_model">OpenAI Model</string>
+    <string name="settings_openai_model_gpt4o_desc">A high-capability larger, more capable and higher cost model</string>
+    <string name="settings_openai_model_gpt4omini_desc">A lightweight model optimized for cost-efficient usage</string>
     <string name="settings_version">Version</string>
     <string name="settings_support_development">Support development</string>
     <string name="settings_support_development_subtitle">Buy Me a Coffee</string>

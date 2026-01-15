@@ -215,10 +215,11 @@ fun SettingsScreen(
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     modelOptions.forEach { model ->
                         val isSelected = model == modelDraft
+                        val subtitleRes = openAiModelDescriptionRes(model)
                         FeatureActionCard(
-                            title = model,
+                            title = openAiModelDisplayName(model),
                             // Don't show "Current" in popups; selection is indicated by the check icon.
-                            subtitle = null,
+                            subtitle = subtitleRes?.let { stringResource(it) },
                             icon = if (isSelected) Icons.Filled.CheckCircle else Icons.Filled.Psychology,
                             onClick = { modelDraft = model },
                             enabled = true,
@@ -476,7 +477,7 @@ fun SettingsScreen(
 
         FeatureActionCard(
             title = stringResource(R.string.settings_openai_model),
-            subtitle = openAiModel,
+            subtitle = openAiModelDisplayName(openAiModel),
             icon = Icons.Filled.Psychology,
             onClick = { showSelectModelDialog = true },
             modifier = Modifier.fillMaxWidth(),
@@ -689,6 +690,31 @@ private suspend fun checkOpenAiRealtimeHandshake(
         Result.success(Unit)
     } catch (t: Throwable) {
         Result.failure(t)
+    }
+}
+
+private fun openAiModelDisplayName(modelId: String): String {
+    val raw = modelId.trim()
+
+    // Explicit display overrides (UI only). Keep backend ids unchanged.
+    return when (raw) {
+        "gpt-4o-realtime-preview" -> "GPT-4o-preview"
+        "gpt-4o-mini-realtime-preview" -> "GPT-4o-mini"
+        else -> {
+            // Generic fallback: hide "realtime" and capitalize GPT prefix.
+            raw
+                .replaceFirst("gpt-", "GPT-")
+                .replace("-realtime-", "-")
+                .replace("-realtime", "")
+        }
+    }
+}
+
+private fun openAiModelDescriptionRes(modelId: String): Int? {
+    return when (modelId.trim()) {
+        "gpt-4o-realtime-preview" -> R.string.settings_openai_model_gpt4o_desc
+        "gpt-4o-mini-realtime-preview" -> R.string.settings_openai_model_gpt4omini_desc
+        else -> null
     }
 }
 
