@@ -60,14 +60,17 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.meta.wearable.dat.camera.types.VideoQuality
 import com.metalens.app.conversation.OpenAIRealtimeClient
 import com.metalens.app.settings.AppSettings
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeout
 import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 import okhttp3.WebSocket
 import okhttp3.WebSocketListener
+import org.json.JSONArray
 import org.json.JSONObject
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.coroutines.resume
@@ -121,6 +124,10 @@ fun SettingsScreen(
     var isCheckingConnection by rememberSaveable { mutableStateOf(false) }
     var lastConnectionCheckResult by rememberSaveable { mutableStateOf<String?>(null) }
     var showConnectedDevicesDialog by rememberSaveable { mutableStateOf(false) }
+
+    var isCheckingForUpdate by rememberSaveable { mutableStateOf(false) }
+    var updateDialogMessage by rememberSaveable { mutableStateOf<String?>(null) }
+    var updateDialogReleaseUrl by rememberSaveable { mutableStateOf<String?>(null) }
 
     LaunchedEffect(Unit) {
         wearablesViewModel.startMonitoring()
@@ -359,6 +366,69 @@ fun SettingsScreen(
         )
     }
 
+    if (updateDialogMessage != null) {
+        val releaseUrl = updateDialogReleaseUrl
+        AlertDialog(
+            onDismissRequest = {
+                updateDialogMessage = null
+                updateDialogReleaseUrl = null
+            },
+            containerColor = MaterialTheme.colorScheme.surface,
+            titleContentColor = MaterialTheme.colorScheme.onSurface,
+            textContentColor = MaterialTheme.colorScheme.onSurface,
+            title = { Text(stringResource(R.string.settings_update_check_title)) },
+            text = { Text(text = updateDialogMessage ?: "") },
+            confirmButton = {
+                if (releaseUrl.isNullOrBlank()) {
+                    TextButton(
+                        colors =
+                            ButtonDefaults.textButtonColors(
+                                contentColor = MaterialTheme.colorScheme.primary,
+                            ),
+                        onClick = {
+                            updateDialogMessage = null
+                            updateDialogReleaseUrl = null
+                        },
+                    ) {
+                        Text(stringResource(R.string.common_close))
+                    }
+                } else {
+                    TextButton(
+                        colors =
+                            ButtonDefaults.textButtonColors(
+                                contentColor = MaterialTheme.colorScheme.primary,
+                            ),
+                        onClick = {
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(releaseUrl))
+                            context.startActivity(intent)
+                        },
+                    ) {
+                        Text(stringResource(R.string.settings_update_open_release))
+                    }
+                }
+            },
+            dismissButton =
+                if (releaseUrl.isNullOrBlank()) {
+                    null
+                } else {
+                    {
+                        TextButton(
+                            colors =
+                                ButtonDefaults.textButtonColors(
+                                    contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                                ),
+                            onClick = {
+                                updateDialogMessage = null
+                                updateDialogReleaseUrl = null
+                            },
+                        ) {
+                            Text(stringResource(R.string.common_close))
+                        }
+                    }
+                },
+        )
+    }
+
     Column(
         modifier =
             modifier
@@ -546,7 +616,44 @@ fun SettingsScreen(
             title = stringResource(R.string.settings_version),
             subtitle = BuildConfig.VERSION_NAME,
             icon = Icons.Filled.Info,
-            onClick = {},
+            onClick = {
+                if (isCheckingForUpdate) return@FeatureActionCard
+                isCheckingForUpdate = true
+                scope.launch {
+                    val installed = BuildConfig.VERSION_NAME
+                    val failedText = context.getString(R.string.settings_update_check_failed)
+                    val result = fetchLatestReleaseInfo()
+                    val (message, url) =
+                        result.fold(
+                            onSuccess = { latest ->
+                                val installedNormalized = normalizeVersionForComparison(installed)
+                                val latestNormalized = normalizeVersionForComparison(latest.tagName)
+
+                                if (latestNormalized.isBlank() || installedNormalized.isBlank()) {
+                                    failedText to null
+                                } else if (latestNormalized == installedNormalized) {
+                                    context.getString(
+                                        R.string.settings_update_up_to_date,
+                                        installed,
+                                    ) to null
+                                } else {
+                                    context.getString(
+                                        R.string.settings_update_available,
+                                        latest.tagName,
+                                        installed,
+                                    ) to (latest.htmlUrl ?: "https://github.com/przemek-nowicki/meta-lens-ai/releases")
+                                }
+                            },
+                            onFailure = {
+                                failedText to null
+                            },
+                        )
+
+                    updateDialogMessage = message
+                    updateDialogReleaseUrl = url
+                    isCheckingForUpdate = false
+                }
+            },
             modifier = Modifier.fillMaxWidth(),
         )
 
@@ -715,6 +822,49 @@ private fun openAiModelDescriptionRes(modelId: String): Int? {
         "gpt-4o-realtime-preview" -> R.string.settings_openai_model_gpt4o_desc
         "gpt-4o-mini-realtime-preview" -> R.string.settings_openai_model_gpt4omini_desc
         else -> null
+    }
+}
+
+private data class ReleaseInfo(
+    val tagName: String,
+    val htmlUrl: String?,
+)
+
+private fun normalizeVersionForComparison(raw: String): String {
+    // Normalize typical tag/version formats: "v0.1.0" == "0.1.0"
+    return raw.trim().removePrefix("v").removePrefix("V")
+}
+
+private suspend fun fetchLatestReleaseInfo(): Result<ReleaseInfo> {
+    return withContext(Dispatchers.IO) {
+        try {
+            val client = OkHttpClient()
+            val request =
+                Request.Builder()
+                    .url("https://api.github.com/repos/przemek-nowicki/meta-lens-ai/releases")
+                    .header("Accept", "application/vnd.github+json")
+                    .header("User-Agent", "MetaLens-AI-Android")
+                    .build()
+
+            client.newCall(request).execute().use { response ->
+                if (!response.isSuccessful) {
+                    return@withContext Result.failure(IllegalStateException("HTTP ${response.code}"))
+                }
+
+                val body = response.body?.string().orEmpty()
+                val releases = JSONArray(body)
+                if (releases.length() == 0) {
+                    return@withContext Result.failure(IllegalStateException("No releases"))
+                }
+
+                val latest = releases.getJSONObject(0)
+                val tagName = latest.optString("tag_name").orEmpty()
+                val htmlUrl = latest.optString("html_url").takeIf { it.isNotBlank() }
+                Result.success(ReleaseInfo(tagName = tagName, htmlUrl = htmlUrl))
+            }
+        } catch (t: Throwable) {
+            Result.failure(t)
+        }
     }
 }
 
