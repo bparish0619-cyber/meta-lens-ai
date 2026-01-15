@@ -10,6 +10,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.activity.ComponentActivity
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -92,7 +94,19 @@ private fun MetaLensScaffold(navController: NavHostController) {
         },
         bottomBar = {
             if (!isFullScreenRoute) {
-                NavigationBar {
+                val navItemColors =
+                    NavigationBarItemDefaults.colors(
+                        selectedIconColor = MaterialTheme.colorScheme.primary,
+                        selectedTextColor = MaterialTheme.colorScheme.primary,
+                        indicatorColor = MaterialTheme.colorScheme.primaryContainer,
+                        unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                        unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+
+                NavigationBar(
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    tonalElevation = 0.dp,
+                ) {
                     bottomTabs.forEach { tab ->
                         val selected = tab.route == currentRoute
                         NavigationBarItem(
@@ -121,7 +135,13 @@ private fun MetaLensScaffold(navController: NavHostController) {
                                     contentDescription = stringResource(tab.titleResId),
                                 )
                             },
-                            label = { Text(stringResource(tab.titleResId), style = MaterialTheme.typography.labelSmall) },
+                            label = {
+                                Text(
+                                    stringResource(tab.titleResId),
+                                    style = MaterialTheme.typography.labelSmall,
+                                )
+                            },
+                            colors = navItemColors,
                         )
                     }
                 }

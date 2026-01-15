@@ -8,12 +8,12 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions
 import androidx.activity.viewModels
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.CompositionLocalProvider
 import com.meta.wearable.dat.core.types.Permission
 import com.meta.wearable.dat.core.types.PermissionStatus
 import com.meta.wearable.dat.core.Wearables
 import com.metalens.app.ui.navigation.MetaLensApp
+import com.metalens.app.ui.theme.MetaLensTheme
 import com.metalens.app.wearables.LocalWearablesPermissionRequester
 import com.metalens.app.wearables.WearablesViewModel
 import kotlin.coroutines.resume
@@ -48,7 +48,7 @@ class MainActivity : ComponentActivity() {
         }
 
         setContent {
-            MaterialTheme {
+            MetaLensTheme {
                 CompositionLocalProvider(
                     LocalWearablesPermissionRequester provides
                         com.metalens.app.wearables.WearablesPermissionRequester(::requestWearablesPermission),

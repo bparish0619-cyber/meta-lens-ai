@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#5B86E5</color>
-    <color name="secondary">#36D1DC</color>
+    <!-- Keep in sync with Compose theme (MetaLensTheme). -->
+    <color name="primary">#0064E0</color>
+    <color name="secondary">#61BC63</color>
     <color name="background">#FFFFFF</color>
     <color name="text_primary">#1A1A1A</color>
 </resources>
