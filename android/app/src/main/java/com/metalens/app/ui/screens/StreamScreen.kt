@@ -35,6 +35,7 @@ import com.meta.wearable.dat.core.Wearables
 import com.meta.wearable.dat.core.types.Permission
 import com.meta.wearable.dat.core.types.PermissionStatus
 import com.metalens.app.R
+import com.metalens.app.settings.AppSettings
 import com.metalens.app.stream.StreamViewModel
 import com.metalens.app.wearables.LocalWearablesPermissionRequester
 import com.metalens.app.wearables.WearablesViewModel
@@ -45,6 +46,7 @@ fun StreamScreen(
     onStop: () -> Unit,
 ) {
     val activity = LocalContext.current as ComponentActivity
+    val context = LocalContext.current
     val wearablesViewModel: WearablesViewModel = viewModel(activity)
     val permissionRequester = LocalWearablesPermissionRequester.current
 
@@ -115,6 +117,11 @@ fun StreamScreen(
         ) {
             Text(
                 text = "session=${uiState.streamSessionState}",
+                color = Color.White,
+                style = MaterialTheme.typography.bodySmall,
+            )
+            Text(
+                text = "quality=${AppSettings.getCameraVideoQuality(context).name}",
                 color = Color.White,
                 style = MaterialTheme.typography.bodySmall,
             )
