@@ -10,12 +10,12 @@ import com.meta.wearable.dat.camera.startStreamSession
 import com.meta.wearable.dat.camera.types.PhotoData
 import com.meta.wearable.dat.camera.types.StreamConfiguration
 import com.meta.wearable.dat.camera.types.StreamSessionState
-import com.meta.wearable.dat.camera.types.VideoQuality
 import com.meta.wearable.dat.core.Wearables
 import com.meta.wearable.dat.core.selectors.AutoDeviceSelector
 import com.meta.wearable.dat.core.selectors.DeviceSelector
 import com.meta.wearable.dat.core.types.DeviceCompatibility
 import com.meta.wearable.dat.core.types.DeviceIdentifier
+import com.metalens.app.settings.AppSettings
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.withTimeoutOrNull
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -165,10 +165,11 @@ class WearablesViewModel(application: Application) : AndroidViewModel(applicatio
             var assignedToField = false
             val session =
                 try {
+                    val quality = AppSettings.getCameraVideoQuality(getApplication())
                     Wearables.startStreamSession(
                         getApplication(),
                         deviceSelector,
-                        StreamConfiguration(videoQuality = VideoQuality.MEDIUM, 24),
+                        StreamConfiguration(videoQuality = quality, 24),
                     )
                 } catch (t: Throwable) {
                     _uiState.update {
@@ -291,10 +292,11 @@ class WearablesViewModel(application: Application) : AndroidViewModel(applicatio
 
             val session =
                 try {
+                    val quality = AppSettings.getCameraVideoQuality(getApplication())
                     Wearables.startStreamSession(
                         getApplication(),
                         deviceSelector,
-                        StreamConfiguration(videoQuality = VideoQuality.MEDIUM, 24),
+                        StreamConfiguration(videoQuality = quality, 24),
                     )
                 } catch (t: Throwable) {
                     _uiState.update {

@@ -24,6 +24,7 @@ import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Wifi
 import androidx.compose.material.icons.filled.Key
 import androidx.compose.material.icons.filled.Psychology
+import androidx.compose.material.icons.filled.Videocam
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.AlertDialog
@@ -33,6 +34,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
@@ -55,6 +57,7 @@ import com.metalens.app.R
 import com.metalens.app.ui.components.FeatureActionCard
 import com.metalens.app.wearables.WearablesViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.meta.wearable.dat.camera.types.VideoQuality
 import com.metalens.app.conversation.OpenAIRealtimeClient
 import com.metalens.app.settings.AppSettings
 import kotlinx.coroutines.launch
@@ -100,6 +103,20 @@ fun SettingsScreen(
     var apiKeyDraft by rememberSaveable { mutableStateOf(openAiApiKey) }
     var modelDraft by rememberSaveable { mutableStateOf(openAiModel) }
 
+    val cameraQualityOptions =
+        rememberSaveable {
+            listOf(
+                VideoQuality.LOW,
+                VideoQuality.MEDIUM,
+                VideoQuality.HIGH,
+            )
+        }
+    var cameraQuality by rememberSaveable {
+        mutableStateOf(AppSettings.getCameraVideoQuality(context).name)
+    }
+    var showSelectCameraQualityDialog by rememberSaveable { mutableStateOf(false) }
+    var cameraQualityDraft by rememberSaveable { mutableStateOf(cameraQuality) }
+
     val scope = rememberCoroutineScope()
     var isCheckingConnection by rememberSaveable { mutableStateOf(false) }
     var lastConnectionCheckResult by rememberSaveable { mutableStateOf<String?>(null) }
@@ -122,9 +139,18 @@ fun SettingsScreen(
         }
     }
 
+    LaunchedEffect(showSelectCameraQualityDialog) {
+        if (showSelectCameraQualityDialog) {
+            cameraQualityDraft = cameraQuality
+        }
+    }
+
     if (showEditApiKeyDialog) {
         AlertDialog(
             onDismissRequest = { showEditApiKeyDialog = false },
+            containerColor = MaterialTheme.colorScheme.surface,
+            titleContentColor = MaterialTheme.colorScheme.onSurface,
+            textContentColor = MaterialTheme.colorScheme.onSurface,
             title = { Text(stringResource(R.string.settings_openai_api_key)) },
             text = {
                 OutlinedTextField(
@@ -150,6 +176,10 @@ fun SettingsScreen(
             },
             confirmButton = {
                 TextButton(
+                    colors =
+                        ButtonDefaults.textButtonColors(
+                            contentColor = MaterialTheme.colorScheme.primary,
+                        ),
                     onClick = {
                         val normalized = apiKeyDraft.trim()
                         AppSettings.setOpenAiApiKey(context, normalized)
@@ -161,7 +191,13 @@ fun SettingsScreen(
                 }
             },
             dismissButton = {
-                TextButton(onClick = { showEditApiKeyDialog = false }) {
+                TextButton(
+                    colors =
+                        ButtonDefaults.textButtonColors(
+                            contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                        ),
+                    onClick = { showEditApiKeyDialog = false },
+                ) {
                     Text(stringResource(R.string.common_cancel))
                 }
             },
@@ -171,20 +207,19 @@ fun SettingsScreen(
     if (showSelectModelDialog) {
         AlertDialog(
             onDismissRequest = { showSelectModelDialog = false },
+            containerColor = MaterialTheme.colorScheme.surface,
+            titleContentColor = MaterialTheme.colorScheme.onSurface,
+            textContentColor = MaterialTheme.colorScheme.onSurface,
             title = { Text(stringResource(R.string.settings_openai_model)) },
             text = {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     modelOptions.forEach { model ->
-                        val subtitle =
-                            when {
-                                model == openAiModel -> stringResource(R.string.settings_current)
-                                model == modelDraft -> stringResource(R.string.settings_selected)
-                                else -> null
-                            }
+                        val isSelected = model == modelDraft
                         FeatureActionCard(
                             title = model,
-                            subtitle = subtitle,
-                            icon = Icons.Filled.Psychology,
+                            // Don't show "Current" in popups; selection is indicated by the check icon.
+                            subtitle = null,
+                            icon = if (isSelected) Icons.Filled.CheckCircle else Icons.Filled.Psychology,
                             onClick = { modelDraft = model },
                             enabled = true,
                             modifier = Modifier.fillMaxWidth(),
@@ -194,6 +229,10 @@ fun SettingsScreen(
             },
             confirmButton = {
                 TextButton(
+                    colors =
+                        ButtonDefaults.textButtonColors(
+                            contentColor = MaterialTheme.colorScheme.primary,
+                        ),
                     onClick = {
                         val normalized = modelDraft.trim()
                         AppSettings.setOpenAiModel(context, normalized)
@@ -205,7 +244,76 @@ fun SettingsScreen(
                 }
             },
             dismissButton = {
-                TextButton(onClick = { showSelectModelDialog = false }) {
+                TextButton(
+                    colors =
+                        ButtonDefaults.textButtonColors(
+                            contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                        ),
+                    onClick = { showSelectModelDialog = false },
+                ) {
+                    Text(stringResource(R.string.common_cancel))
+                }
+            },
+        )
+    }
+
+    if (showSelectCameraQualityDialog) {
+        AlertDialog(
+            onDismissRequest = { showSelectCameraQualityDialog = false },
+            containerColor = MaterialTheme.colorScheme.surface,
+            titleContentColor = MaterialTheme.colorScheme.onSurface,
+            textContentColor = MaterialTheme.colorScheme.onSurface,
+            title = { Text(stringResource(R.string.settings_camera_quality_title)) },
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    cameraQualityOptions.forEach { quality ->
+                        val desc =
+                            when (quality) {
+                                VideoQuality.LOW -> stringResource(R.string.settings_camera_quality_low_desc)
+                                VideoQuality.MEDIUM -> stringResource(R.string.settings_camera_quality_medium_desc)
+                                VideoQuality.HIGH -> stringResource(R.string.settings_camera_quality_high_desc)
+                            }
+
+                        val isSelected = quality.name == cameraQualityDraft
+
+                        FeatureActionCard(
+                            title = quality.name,
+                            // Don't show "Current" in popups; selection is indicated by the check icon.
+                            subtitle = desc,
+                            icon = if (isSelected) Icons.Filled.CheckCircle else Icons.Filled.Videocam,
+                            onClick = { cameraQualityDraft = quality.name },
+                            enabled = true,
+                            modifier = Modifier.fillMaxWidth(),
+                        )
+                    }
+                }
+            },
+            confirmButton = {
+                TextButton(
+                    colors =
+                        ButtonDefaults.textButtonColors(
+                            contentColor = MaterialTheme.colorScheme.primary,
+                        ),
+                    onClick = {
+                        val selected =
+                            cameraQualityOptions.firstOrNull { it.name == cameraQualityDraft }
+                                ?: VideoQuality.MEDIUM
+                        AppSettings.setCameraVideoQuality(context, selected)
+                        cameraQuality = selected.name
+                        showSelectCameraQualityDialog = false
+                    },
+                ) {
+                    Text(stringResource(R.string.common_save))
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    colors =
+                        ButtonDefaults.textButtonColors(
+                            contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                        ),
+                    onClick = { showSelectCameraQualityDialog = false },
+                ) {
                     Text(stringResource(R.string.common_cancel))
                 }
             },
@@ -216,6 +324,9 @@ fun SettingsScreen(
         val connectedDevices = uiState.connectedDevices
         AlertDialog(
             onDismissRequest = { showConnectedDevicesDialog = false },
+            containerColor = MaterialTheme.colorScheme.surface,
+            titleContentColor = MaterialTheme.colorScheme.onSurface,
+            textContentColor = MaterialTheme.colorScheme.onSurface,
             title = { Text(stringResource(R.string.settings_connected_devices)) },
             text = {
                 if (connectedDevices.isEmpty()) {
@@ -234,7 +345,13 @@ fun SettingsScreen(
                 }
             },
             confirmButton = {
-                TextButton(onClick = { showConnectedDevicesDialog = false }) {
+                TextButton(
+                    colors =
+                        ButtonDefaults.textButtonColors(
+                            contentColor = MaterialTheme.colorScheme.primary,
+                        ),
+                    onClick = { showConnectedDevicesDialog = false },
+                ) {
                     Text(stringResource(R.string.common_close))
                 }
             },
@@ -314,6 +431,23 @@ fun SettingsScreen(
             icon = Icons.Filled.Devices,
             onClick = { showConnectedDevicesDialog = true },
             enabled = connectedDevices.isNotEmpty(),
+            modifier = Modifier.fillMaxWidth(),
+        )
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        val cameraQualityValue = runCatching { VideoQuality.valueOf(cameraQuality) }.getOrDefault(VideoQuality.MEDIUM)
+        val cameraQualityDesc =
+            when (cameraQualityValue) {
+                VideoQuality.LOW -> stringResource(R.string.settings_camera_quality_low_desc)
+                VideoQuality.MEDIUM -> stringResource(R.string.settings_camera_quality_medium_desc)
+                VideoQuality.HIGH -> stringResource(R.string.settings_camera_quality_high_desc)
+            }
+        FeatureActionCard(
+            title = stringResource(R.string.settings_camera_quality_title),
+            subtitle = "${cameraQualityValue.name} — $cameraQualityDesc",
+            icon = Icons.Filled.Videocam,
+            onClick = { showSelectCameraQualityDialog = true },
             modifier = Modifier.fillMaxWidth(),
         )
 

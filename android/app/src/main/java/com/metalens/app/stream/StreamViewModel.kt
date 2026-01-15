@@ -15,9 +15,9 @@ import com.meta.wearable.dat.camera.startStreamSession
 import com.meta.wearable.dat.camera.types.StreamConfiguration
 import com.meta.wearable.dat.camera.types.StreamSessionState
 import com.meta.wearable.dat.camera.types.VideoFrame
-import com.meta.wearable.dat.camera.types.VideoQuality
 import com.meta.wearable.dat.core.Wearables
 import com.meta.wearable.dat.core.selectors.DeviceSelector
+import com.metalens.app.settings.AppSettings
 import com.metalens.app.wearables.WearablesViewModel
 import java.io.ByteArrayOutputStream
 import kotlinx.coroutines.Job
@@ -58,7 +58,7 @@ class StreamViewModel(
                 Wearables.startStreamSession(
                     getApplication(),
                     deviceSelector,
-                    StreamConfiguration(videoQuality = VideoQuality.MEDIUM, 24),
+                    StreamConfiguration(videoQuality = AppSettings.getCameraVideoQuality(getApplication()), 24),
                 ).also { streamSession = it }
             } catch (t: Throwable) {
                 Log.e(TAG, "startStreamSession() failed", t)

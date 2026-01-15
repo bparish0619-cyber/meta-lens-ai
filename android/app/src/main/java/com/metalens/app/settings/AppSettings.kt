@@ -1,6 +1,7 @@
 package com.metalens.app.settings
 
 import android.content.Context
+import com.meta.wearable.dat.camera.types.VideoQuality
 import com.metalens.app.BuildConfig
 import com.metalens.app.conversation.OpenAIRealtimeClient
 
@@ -8,6 +9,7 @@ object AppSettings {
     private const val PREFS_NAME = "meta_lens_ai_settings"
     private const val KEY_OPENAI_API_KEY = "openai_api_key"
     private const val KEY_OPENAI_MODEL = "openai_model"
+    private const val KEY_CAMERA_VIDEO_QUALITY = "camera_video_quality"
 
     fun getOpenAiApiKey(context: Context): String {
         val prefs = context.applicationContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -33,6 +35,22 @@ object AppSettings {
     fun setOpenAiModel(context: Context, model: String) {
         val prefs = context.applicationContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         prefs.edit().putString(KEY_OPENAI_MODEL, model.trim()).apply()
+    }
+
+    fun getCameraVideoQuality(context: Context): VideoQuality {
+        val prefs = context.applicationContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        val raw = prefs.getString(KEY_CAMERA_VIDEO_QUALITY, null)?.trim()?.uppercase()
+        return when (raw) {
+            "LOW" -> VideoQuality.LOW
+            "HIGH" -> VideoQuality.HIGH
+            "MEDIUM", null, "" -> VideoQuality.MEDIUM
+            else -> VideoQuality.MEDIUM
+        }
+    }
+
+    fun setCameraVideoQuality(context: Context, quality: VideoQuality) {
+        val prefs = context.applicationContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        prefs.edit().putString(KEY_CAMERA_VIDEO_QUALITY, quality.name).apply()
     }
 }
 
