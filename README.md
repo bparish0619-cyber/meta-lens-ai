@@ -84,12 +84,24 @@ Critical Steps to Run MetaLens on Your Android Phone.
 > No Google Play Store - installation from APK (see why above) 
 > Download .APK file
 
-1. On your phone, enable installing apps from unknown sources.
-2. Open the APK and complete the installation.
-3. Open **MetaLens** and go to settings click "Connect my glasses", turn the toggle on, and connect to your glasses.
-4. Open the OpenAI API Key settings and enter your OpenAI API key, your API key should start with `sk-proj-`.
-5. Click Connection Check; if the provided API key is correct, you should see a “Connection OK” status.
-6. Go to the Home screen—if the buttons are not grayed out, you’re good to go.
+Example installation screens on a Xiaomi Poco F6:
+<p align="center">
+  <img src="docs/screenshots/instalation/step1.jpg" width="24%" alt="Installation Step 1" />
+  <img src="docs/screenshots/instalation/step2.jpg" width="24%" alt="Installation Step 2" />
+  <img src="docs/screenshots/instalation/step3.jpg" width="24%" alt="Installation Step 3" />
+  <img src="docs/screenshots/instalation/step4.jpg" width="24%" alt="Installation Step 4" />
+  <br />
+  <img src="docs/screenshots/instalation/step5.jpg" width="24%" alt="Installation Step 5" />
+  <img src="docs/screenshots/instalation/step6.jpg" width="24%" alt="Installation Step 6" />
+  <img src="docs/screenshots/instalation/step7.jpg" width="24%" alt="Installation Step 7" />
+</p>
+
+1. Open this page on your phone and tap the [.apk](https://github.com/przemek-nowicki/meta-lens-ai/releases/download/v0.1.0/meta-lens-ai-v0.1.0.apk) download. When prompted, choose Settings to allow installs from this source.
+2. Read the warning and confirm you understand the risk.
+3. Toggle **Allow from this source** to ON.
+4. Confirm the **Install** prompt for MetaLens and wait for installation to finish.
+5. After the security scan, tap **Open** (or find the MetaLens icon on your home screen).
+6. On first launch, allow the nearby devices permission so MetaLens can connect to your glasses.
 
 
 ## Privacy and Security
