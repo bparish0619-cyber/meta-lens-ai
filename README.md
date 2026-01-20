@@ -3,7 +3,7 @@
 Talk to ChatGPT, take pictures, and analyze what you see through your Meta Glasses.
 
 > 📥 **Quick download**
-> - **Android**: Download the latest `.apk`, then follow the installation steps below.
+> - **Android Beta Version**: Download the latest `.apk` from [v0.1.0 release](https://github.com/przemek-nowicki/meta-lens-ai/releases/tag/v0.1.0), then follow the installation steps below.
 > - **iOS**: Work in progress.
 
 ## UI Preview
