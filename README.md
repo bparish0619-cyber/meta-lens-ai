@@ -3,7 +3,7 @@
 Talk to ChatGPT, take photos, let AI analyze what you see, and live-stream directly from your Meta Glasses to YouTube.
 
 > 📥 **Quick download**
-> - **Android Beta Version**: Download the latest [.apk](https://github.com/przemek-nowicki/meta-lens-ai/releases/download/v0.1.0/meta-lens-ai-v0.1.0.apk), then follow the installation steps below.
+> - **Android Beta Version**: Download the latest [.apk](https://github.com/przemek-nowicki/meta-lens-ai/releases/download/v0.2.0/meta-lens-ai-v0.2.0.apk), then follow the installation steps below.
 > - **iOS**: Work in progress.
 
 ## UI Preview
@@ -22,6 +22,9 @@ Talk to ChatGPT, take photos, let AI analyze what you see, and live-stream direc
 
 ### <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg" alt="YouTube" height="16">
 Live-stream what the glasses’ camera sees to YouTube with hands-free control.
+
+[<img src="https://upload.wikimedia.org/wikipedia/commons/7/75/YouTube_social_white_squircle_%282017%29.svg" width="12" alt="YouTube" /> **Watch demo from live stream**](https://www.youtube.com/watch?v=q4qazrSmSkU)
+
 
 ### <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" height="16"> Conversation
 A hands-free voice conversation with ChatGPT, including a live transcript view.
@@ -94,7 +97,7 @@ Example installation screens on a Xiaomi Poco F6:
   <img src="docs/screenshots/instalation/step8.jpg" width="24%" alt="Installation Step 8" />
 </p>
 
-1. Open this page on your phone and tap the [.apk](https://github.com/przemek-nowicki/meta-lens-ai/releases/download/v0.1.0/meta-lens-ai-v0.1.0.apk) download. When prompted, choose Settings to allow installs from this source.
+1. Open this page on your phone and tap the [.apk](https://github.com/przemek-nowicki/meta-lens-ai/releases/download/v0.2.0/meta-lens-ai-v0.2.0.apk) download. When prompted, choose Settings to allow installs from this source.
 2. Read the warning and confirm you understand the risk.
 3. Toggle **Allow from this source** to ON.
 4. Confirm the **Install** prompt for MetaLens and wait for installation to finish.
