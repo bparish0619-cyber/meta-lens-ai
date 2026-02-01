@@ -4,7 +4,7 @@ Talk to ChatGPT, take photos, let AI analyze what you see, and live-stream direc
 
 > 📥 **Quick download**
 > - **Android Beta Version**: Download the latest [.apk](https://github.com/przemek-nowicki/meta-lens-ai/releases/download/v0.2.0/meta-lens-ai-v0.2.0.apk), then follow the installation steps below.
-> - **iOS**: Work in progress.
+> - **iOS**: Work in progress. Follow updates and early access at [metalensai.com](https://metalensai.com/).
 
 ## UI Preview
 
