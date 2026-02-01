@@ -3,8 +3,8 @@
 Talk to ChatGPT, take photos, let AI analyze what you see, and live-stream directly from your Meta Glasses to YouTube or Twitch.
 
 > 📥 **Quick download**
-> - **Android Beta Version**: Download the latest [.apk](https://github.com/przemek-nowicki/meta-lens-ai/releases/download/v0.2.0/meta-lens-ai-v0.2.0.apk), then follow the installation steps below.
-> - **iOS**: Work in progress.
+> - **Android Beta Version**: Download the latest [.apk](https://github.com/przemek-nowicki/meta-lens-ai/releases/download/v0.3.0/meta-lens-ai-v0.3.0.apk), then follow the installation steps below.
+> - **iOS**: Work in progress. Follow updates and early access at [metalensai.com](https://metalensai.com/).
 
 ## UI Preview
 
@@ -99,7 +99,7 @@ Example installation screens on a Xiaomi Poco F6:
   <img src="docs/screenshots/instalation/step8.jpg" width="24%" alt="Installation Step 8" />
 </p>
 
-1. Open this page on your phone and tap the [.apk](https://github.com/przemek-nowicki/meta-lens-ai/releases/download/v0.2.0/meta-lens-ai-v0.2.0.apk) download. When prompted, choose Settings to allow installs from this source.
+1. Open this page on your phone and tap the [.apk](https://github.com/przemek-nowicki/meta-lens-ai/releases/download/v0.3.0/meta-lens-ai-v0.3.0.apk) download. When prompted, choose Settings to allow installs from this source.
 2. Read the warning and confirm you understand the risk.
 3. Toggle **Allow from this source** to ON.
 4. Confirm the **Install** prompt for MetaLens and wait for installation to finish.
