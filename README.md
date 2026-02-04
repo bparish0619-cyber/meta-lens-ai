@@ -37,6 +37,8 @@ Live-stream what the glasses’ camera sees to Twitch with hands-free control.
 > Setting MetaLens AI to **No restrictions** / **Unrestricted** helps prevent the system from limiting 
 > background activity, which can cause the stream to pause or disconnect.
 > ``Settings → Battery →  MetaLens AI (app must be running) → Battery Saver → No restriction``
+>
+> Watch this short [walkthrough](https://www.youtube.com/shorts/-JmbuCbm_T8).
 
 ### <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" height="16"> Conversation
 A hands-free voice conversation with ChatGPT, including a live transcript view.
@@ -139,11 +141,11 @@ If this project is useful to you, you can support its development here:
   **A:** Make sure **Developer Mode** is enabled in the Meta AI app, the glasses are connected in Meta AI. Watch this [short tutorial](https://www.youtube.com/shorts/v34u_DYSRBM).
 
 - **Q: The stream pauses or disconnects.**  
-  **A:** Disable battery restrictions for MetaLens AI:  
+  **A:** Disable battery restrictions for MetaLens AI ([video tutorial](https://www.youtube.com/shorts/-JmbuCbm_T8)):  
   `Settings → Battery → MetaLens AI → Battery Saver → No restriction`.
 
 - **Q: The Bluetooth disconnects.**  
-  **A:** Disable battery restrictions for MetaLens AI:  
+  **A:** Disable battery restrictions for MetaLens AI ([video tutorial](https://www.youtube.com/shorts/-JmbuCbm_T8)):  
   `Settings → Battery → MetaLens AI → Battery Saver → No restriction`.  
 
 - **Q: I can’t see the app in the Play Store.**  
