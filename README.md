@@ -80,6 +80,7 @@ Critical Steps to Run MetaLens AI on Your Android Phone is to enable **Developer
 > [!WARNING]
 > **Developer Mode Required**  - Before You Start Instalation MetLens AI
 > Your Meta glasses must have **Developer Mode enabled** in the Meta AI app before the MetaLens AI app can connect to them.
+>
 > **How to enable:**  
 > Watch this short [walkthrough](https://www.youtube.com/shorts/v34u_DYSRBM) or follow the steps below:
 > 1. Open **Meta AI** app on your phone  
@@ -152,7 +153,7 @@ If this project is useful to you, you can support its development here:
   **A:** Verify your OpenAI API key is valid, saved, and that your phone has internet access.
 
 - **Q: iOS version?**  
-  **A:** iOS is in progress—follow updates at [metalensai.com](https://metalensai.com/).
+  **A:** iOS is in progress, follow updates at [metalensai.com](https://metalensai.com/).
 
 ## License
 
