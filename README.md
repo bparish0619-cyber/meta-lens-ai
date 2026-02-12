@@ -27,7 +27,7 @@ Talk to ChatGPT, take photos, let AI analyze what you see, and live-stream direc
 ### <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg" alt="YouTube" height="16">
 Live-stream what the glasses’ camera sees to YouTube with hands-free control.
 
-[<img src="https://upload.wikimedia.org/wikipedia/commons/7/75/YouTube_social_white_squircle_%282017%29.svg" width="14" alt="YouTube" /> **Watch demo from live stream**](https://www.youtube.com/watch?v=T0EGmjZZK2k)
+[<img src="https://upload.wikimedia.org/wikipedia/commons/7/75/YouTube_social_white_squircle_%282017%29.svg" width="14" alt="YouTube" /> **Watch demo from live stream**](https://www.youtube.com/live/z6s6ay0wkkM)
 
 ### <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/Twitch_logo_2019.svg" alt="Twitch" height="16">
 Live-stream what the glasses’ camera sees to Twitch with hands-free control.
