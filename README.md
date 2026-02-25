@@ -32,13 +32,17 @@ Live-stream what the glasses’ camera sees to YouTube with hands-free control.
 ### <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/Twitch_logo_2019.svg" alt="Twitch" height="16">
 Live-stream what the glasses’ camera sees to Twitch with hands-free control.
 
+[<img src="docs/icons/twitch_icon.svg" width="14" alt="YouTube" />
+**Watch demo from live stream**](https://www.twitch.tv/videos/2707247644)
+
 > [!TIP]
 > For the best streaming experience in MetaLens AI, battery restrictions for the app should be disabled.
 > Setting MetaLens AI to **No restrictions** / **Unrestricted** helps prevent the system from limiting 
 > background activity, which can cause the stream to pause or disconnect.
 > ``Settings → Battery →  MetaLens AI (app must be running) → Battery Saver → No restriction``
 >
-> Watch this short [walkthrough](https://www.youtube.com/shorts/-JmbuCbm_T8) or [this one](https://youtube.com/shorts/wvCGgyorcVs).
+> Watch this short [walkthrough](https://www.youtube.com/shorts/-JmbuCbm_T8) or [this one](https://youtube.com/shorts/wvCGgyorcVs).<br /><br />
+> In case of any issues, head here: https://metalensai.com/faq/ or contact us: metalensai@gmail.com.
 
 ### <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" height="16"> Conversation
 A hands-free voice conversation with ChatGPT, including a live transcript view.
