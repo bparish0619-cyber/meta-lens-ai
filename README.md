@@ -7,7 +7,7 @@ Talk to ChatGPT, take photos, let AI analyze what you see, and live-stream direc
 
 
 > 📥 **Quick download**
-> - **Android**: Download the latest [.apk](https://github.com/przemek-nowicki/meta-lens-ai/releases/download/v0.11.0/meta-lens-ai-v0.11.0.apk) on your phone ([see video](https://youtube.com/shorts/QVVm1t4VBfk)),then follow the installation steps below.
+> - **Android**: Download the latest [.apk](https://github.com/przemek-nowicki/meta-lens-ai/releases/download/v0.12.0/meta-lens-ai-v0.12.0.apk) on your phone ([see video](https://youtube.com/shorts/QVVm1t4VBfk)),then follow the installation steps below.
 > - **iOS**: Work in progress. Follow updates and early access at [metalensai.com](https://metalensai.com/).
 
 ## UI Preview
@@ -25,9 +25,16 @@ Talk to ChatGPT, take photos, let AI analyze what you see, and live-stream direc
 ## Application features
 
 ### <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg" alt="YouTube" height="16">
-Live-stream what the glasses’ camera sees to YouTube with hands-free control.
+Live-stream what the glasses’ camera sees to YouTube with hands-free control.<br />
+Stream in **portrait** or **landscape** using your smart glasses, your phone's front or rear camera, or **both at once**.
 
-[<img src="https://upload.wikimedia.org/wikipedia/commons/7/75/YouTube_social_white_squircle_%282017%29.svg" width="14" alt="YouTube" /> **Watch demo from live stream**](https://www.youtube.com/live/z6s6ay0wkkM)
+
+[<img src="https://upload.wikimedia.org/wikipedia/commons/7/75/YouTube_social_white_squircle_%282017%29.svg" width="14" alt="YouTube" /> **Watch demo from live stream**](https://www.youtube.com/live/z6s6ay0wkkM) [Vertical]
+
+[<img src="https://upload.wikimedia.org/wikipedia/commons/7/75/YouTube_social_white_squircle_%282017%29.svg" width="14" alt="YouTube" /> **Watch demo of landscape recording with Dual Capture.**](https://www.youtube.com/watch?v=U28ToDQEl-I&t=14s) [Horizontal]
+
+
+
 
 ### <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/Twitch_logo_2019.svg" alt="Twitch" height="16">
 Live-stream what the glasses’ camera sees to Twitch with hands-free control.
@@ -62,11 +69,12 @@ Cinematic HUD effects for videos recorded with your Glasses:<br /><br />
 > In case of any issues, head here: https://metalensai.com/faq/ or contact us: metalensai@gmail.com.
 
 ### 👁️ Live Vision AI
-Bring real-time scene understanding to Meta glasses. Users can speak naturally, share live visual context from the glasses camera, and receive fast AI responses based on what is happening in front of them. The experience combines live preview, voice conversation, and on-demand image analysis in a single flow.<br /><br />
+Bring real-time scene understanding to Meta glasses. Users can speak naturally, share live visual context from the glasses camera, and receive fast AI responses based on what is happening in front of them.<br /><br />
+
 [See Live Vision AI with ChatGPT-5 on Meta Ray-Ban Smart Glasses in action.](https://www.youtube.com/shorts/N0stiJMb9BI)
 
 ### <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" height="16"> Conversation
-A hands-free voice conversation with ChatGPT, including a live transcript view.<br /><br />
+A hands-free voice conversation with ChatGPT or Gemini, including a live transcript view.<br /><br />
 [Demo of ChatGPT Voice Control on Meta Smart Glasses](https://www.youtube.com/shorts/5tXmhzA72JI)
 
 ### 📸 Picture Analysis
@@ -138,7 +146,7 @@ Example installation screens on a Xiaomi Poco F6:
   <img src="docs/screenshots/instalation/step8.jpg" width="24%" alt="Installation Step 8" />
 </p>
 
-1. Open this page on your phone and tap the [.apk](https://github.com/przemek-nowicki/meta-lens-ai/releases/download/v0.11.0/meta-lens-ai-v0.11.0.apk) download. When prompted, choose Settings to allow installs from this source.
+1. Open this page on your phone and tap the [.apk](https://github.com/przemek-nowicki/meta-lens-ai/releases/download/v0.12.0/meta-lens-ai-v0.12.0.apk) download. When prompted, choose Settings to allow installs from this source.
 2. Read the warning and confirm you understand the risk.
 3. Toggle **Allow from this source** to ON.
 4. Confirm the **Install** prompt for MetaLens and wait for installation to finish.
