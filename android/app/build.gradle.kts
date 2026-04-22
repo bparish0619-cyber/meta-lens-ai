@@ -30,8 +30,8 @@ android {
         applicationId = "com.metalens.app"
         minSdk = 31
         targetSdk = 34
-        versionCode = 1
-        versionName = "0.2.0"
+        versionCode = 12
+        versionName = "0.12.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
