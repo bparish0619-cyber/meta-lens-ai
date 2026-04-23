@@ -9,6 +9,9 @@ jobs:
   build:
     name: Build Release APK
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: read
 
     steps:
       - name: Checkout source
@@ -22,6 +25,9 @@ jobs:
 
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
+
+      - name: Install Android SDK platform 35
+        run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
 
       - name: Cache Gradle packages
         uses: actions/cache@v4
