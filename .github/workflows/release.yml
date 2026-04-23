@@ -45,7 +45,7 @@ jobs:
         working-directory: android
         run: ./gradlew assembleRelease --no-daemon
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN || secrets.GITHUB_TOKEN }}
           OPENAI_API_KEY: ""
           OPENAI_MODEL: ""
 
