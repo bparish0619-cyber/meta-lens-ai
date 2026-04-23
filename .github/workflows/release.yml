@@ -27,7 +27,7 @@ jobs:
         uses: android-actions/setup-android@v3
 
       - name: Install Android SDK platform 35
-        run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
+        run: yes | sdkmanager "platforms;android-35" "build-tools;35.0.0" || true
 
       - name: Cache Gradle packages
         uses: actions/cache@v4
@@ -43,7 +43,7 @@ jobs:
 
       - name: Build release APK
         working-directory: android
-        run: ./gradlew assembleRelease --no-daemon
+        run: ./gradlew assembleRelease --no-daemon --stacktrace
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN || secrets.GITHUB_TOKEN }}
           OPENAI_API_KEY: ""
