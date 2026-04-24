@@ -41,9 +41,9 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x android/gradlew
 
-      - name: Build release APK
+      - name: Build APK
         working-directory: android
-        run: ./gradlew assembleRelease --no-daemon --no-configuration-cache --stacktrace
+        run: ./gradlew assembleDebug --no-daemon --no-configuration-cache --stacktrace
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN || secrets.GITHUB_TOKEN }}
           OPENAI_API_KEY: ""
@@ -52,7 +52,7 @@ jobs:
       - name: Locate APK
         id: apk
         run: |
-          APK=$(find android/app/build/outputs/apk/release -name "*.apk" | head -1)
+          APK=$(find android/app/build/outputs/apk/debug -name "*.apk" | head -1)
           echo "path=$APK" >> "$GITHUB_OUTPUT"
           echo "name=$(basename $APK)" >> "$GITHUB_OUTPUT"
 
@@ -80,7 +80,7 @@ jobs:
             - Updated Gradle wrapper to 8.11.1
 
             ---
-            > ⚠️ This is an unsigned debug-style release APK. Enable *Install unknown apps* in your Android settings to sideload.
+            > ℹ️ This APK is signed with the Android debug key. Enable *Install unknown apps* in your Android settings to sideload.
           files: ${{ env.APK_FILE }}
           draft: false
           prerelease: false
