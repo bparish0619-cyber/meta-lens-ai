@@ -83,6 +83,14 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
+    lint {
+        // androidx.lifecycle 2.8.7 ships lint checks compiled against older
+        // Kotlin; under Kotlin 2.1.20 NonNullableMutableLiveDataDetector crashes
+        // with IncompatibleClassChangeError on KaCallableMemberCall. Disable
+        // until lifecycle publishes a compatible lint artifact.
+        disable += "NullSafeMutableLiveData"
+    }
 }
 
 dependencies {
