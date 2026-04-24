@@ -83,6 +83,17 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
+    lint {
+        // Several third-party lint checks (e.g. androidx.lifecycle 2.8.7's
+        // NonNullableMutableLiveDataDetector) crash under Kotlin 2.1.20 with
+        // IncompatibleClassChangeError on KaCallableMemberCall. Skip lint for
+        // release APK builds entirely — this is an unsigned sideload release,
+        // not a Play Store upload, so lintVital isn't worth blocking on.
+        checkReleaseBuilds = false
+        abortOnError = false
+        disable += "NullSafeMutableLiveData"
+    }
 }
 
 dependencies {
